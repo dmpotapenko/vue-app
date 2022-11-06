@@ -2,7 +2,7 @@ import store from "@/store";
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 import HomePage from "../views/HomePage.vue";
-import UserProfile from "../views/UserProfile.vue";
+import UserProfile from "../views/UserProfileSuspense.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {

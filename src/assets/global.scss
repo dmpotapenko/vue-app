@@ -1,0 +1,109 @@
+$primary: #3abf7d;
+$primary-light: #86baa3;
+$danger: #a22;
+$dark: #444;
+
+.form { 
+  &__field {
+    margin-bottom: 16px;
+
+    & > .form__label {
+      display: block;
+      font-size: 20px;
+      font-weight: 600;
+      color: #444d;
+      margin-bottom: 2px;
+    }
+
+    & > .form__input {
+      display: block;
+      width: 100%;
+      outline: 0;
+      border: 2px solid #555;
+      color: #555;
+      line-height: 1.2;
+      font-size: 18px;
+      box-sizing: border-box;
+      background: 0 0;
+      height: 40px;
+      padding: 0 8px;
+      transition: 0.3s linear;
+
+      &:focus {
+        border-color: $primary;
+        border-width: 2px;
+        transition: 0.3s linear;
+      }
+      &:hover {
+        border-color: $primary-light;
+        border-width: 2px;
+        transition: 0.3s linear;
+      }
+    }
+
+    & > .form__error {
+      display: none;
+      padding: 4px 2px 2px 6px;
+    }
+  }
+
+  &_invalid {
+    & > .form__input {
+      border-color: $danger;
+    }
+    & > .form__error {
+      display: block;
+      color: $danger;
+    }
+  }
+}
+
+.btn {
+  cursor: pointer;
+  padding: 12px;
+  border: 1px solid $dark;
+
+  color: white;
+  background-color: $dark;
+  font-size: 16px;
+}
+
+.btn_link {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 0;
+
+  &:hover {
+    color: purple;
+    text-decoration: underline;
+  }
+  &:active {
+    color: blue;
+  }
+}
+
+.btn_primary {
+  background-color: #3abf7d;
+
+  &:hover {
+    background-color: lighten(#3abf7d, 5);
+  }
+  &:active {
+    box-shadow: inset 0px 0px 6px #2229;
+  }
+}
+
+.right {
+  float: right;
+}
+
+.text-danger {
+  color: red;
+}
+
+.clearfix::after {
+  content: " ";
+  display: table;
+  clear: both;
+}

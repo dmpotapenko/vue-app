@@ -114,10 +114,10 @@ function validateFields() {
   }
 
   .content {
-    padding: 2em;
+    padding: 32px;
     width: 100%;
     background-color: white;
-    border-radius: 0.5em;
+    border-radius: 16px;
     min-width: 480px;
   }
 }
