@@ -1,7 +1,7 @@
 import store from "@/store";
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
-import SignIn from "../views/SignIn.vue";
+import HomePage from "../views/HomePage.vue";
 import UserProfile from "../views/UserProfile.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -14,9 +14,15 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/signin",
-    name: "signin",
-    component: SignIn,
+    path: "/",
+    name: "home",
+    component: HomePage,
+    beforeEnter: (_, __, next) => {
+      if (store.getters.authorized) {
+        return next({ name: "user-profile" });
+      }
+      return next();
+    },
   },
   {
     path: "/:catchAll(.*)",
@@ -25,7 +31,7 @@ const routes: Array<RouteRecordRaw> = [
       if (store.getters.authorized) {
         return { name: "user-profile", replace: true };
       }
-      return { name: "signin", replace: true };
+      return { name: "home", replace: true };
     },
   },
 ];
@@ -37,7 +43,7 @@ const router = createRouter({
 
 router.beforeEach((to, _, next) => {
   if (to.meta.authRequired && !store.getters.authorized) {
-    next({ name: "signin" });
+    next({ name: "home" });
   } else {
     next();
   }

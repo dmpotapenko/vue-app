@@ -14,6 +14,7 @@ const password = reactive({
   invalid: false,
 });
 const isLoading = ref(false);
+const errorReason = ref(null);
 
 watch(
   () => store.getters.authorized,
@@ -24,24 +25,25 @@ watch(
   }
 );
 
-async function signInUser() {
-  isLoading.value = true;
-  await store.dispatch("signin", {
-    email: email.value,
-    password: password.value,
-  });
-  isLoading.value = false;
-
-  if (store.getters.authorized) {
-    router.push({ name: "user-profile" });
-  }
-}
-
-function onSubmit(event: Event) {
+async function onSubmit(event: Event) {
   event.preventDefault();
+  errorReason.value = null;
 
   if (validateFields()) {
-    signInUser();
+    isLoading.value = true;
+    const { success, reason } = await store.dispatch("signin", {
+      email: email.value,
+      password: password.value,
+    });
+
+    if (!success) {
+      errorReason.value = reason ?? "Can't signin now";
+    }
+    isLoading.value = false;
+
+    if (store.getters.authorized) {
+      router.push({ name: "user-profile" });
+    }
   }
 }
 function validateFields() {
@@ -53,7 +55,7 @@ function validateFields() {
 </script>
 
 <template>
-  <div id="signin">
+  <div id="home">
     <v-loader :is-loading="isLoading">
       <div class="content">
         <h1>Sign In</h1>
@@ -90,6 +92,7 @@ function validateFields() {
             />
             <div class="form__error"><b>password</b> should not be empty</div>
           </div>
+          <p v-if="errorReason" class="text-danger">{{ errorReason }}</p>
           <button class="btn btn_primary" type="submit" tabindex="3">
             Sign In
           </button>
@@ -100,7 +103,7 @@ function validateFields() {
 </template>
 
 <style lang="scss">
-#signin {
+#home {
   flex: 1;
   display: flex;
   align-items: center;

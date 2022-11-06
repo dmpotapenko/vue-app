@@ -9,15 +9,17 @@ const isAuthorized = computed(() => store.getters.authorized);
 
 watch(
   isAuthorized,
-  (value) => {
-    if (!value && router.currentRoute.value.name !== "signin") {
-      router.push({ name: "signin" });
+  (authorized) => {
+    if (!authorized && router.currentRoute.value.name !== "home") {
+      router.push({ name: "home" });
     }
   },
   {
     immediate: true,
   }
 );
+
+store.dispatch("initState");
 
 function onLogoutClick() {
   store.dispatch("logout");
@@ -29,10 +31,6 @@ function onLogoutClick() {
     <div class="right" v-if="isAuthorized">
       <div class="btn btn_link btn-logout" @click="onLogoutClick">Logout</div>
     </div>
-    <!-- <ul>
-      <li><router-link to="/test">Test</router-link></li>
-      <li><router-link to="/signin">SignIn</router-link></li>
-    </ul> -->
   </header>
   <main class="main">
     <div class="page">
@@ -178,6 +176,10 @@ body {
 
   .btn-logout {
     margin: 12px;
+  }
+
+  .text-danger {
+    color: red;
   }
 }
 </style>

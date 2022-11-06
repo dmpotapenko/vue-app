@@ -1,39 +1,43 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, watch } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+
 const store = useStore();
+const router = useRouter();
 
 const profileData = computed(() => store.state.profile);
+const authUserId = computed(() => store.state.auth?.id);
 await fetchUserProfile();
+watch(authUserId, async () => {
+  if (authUserId.value) {
+    await fetchUserProfile();
+  } else {
+    router.push("home");
+  }
+});
 
 async function fetchUserProfile() {
-  await store.dispatch("fetchUserProfile");
+  await store.dispatch("fetchUserProfile", authUserId.value);
 }
-
-const data = {
-  GEO: "Russia",
-  profession: "Web-Developer",
-  "Last Activity": "two days ago",
-  "Total Projects": 32,
-};
 </script>
 
 <template>
-  <div class="profile">
+  <div v-if="profileData" class="profile">
     <div class="profile__header">
       <div class="profile__image">
         <img src="https://i.pravatar.cc/300" alt="must be here" />
       </div>
       <div class="profile__info">
-        <span>Dmitry</span>
-        <h3>ddpotapenko@gmail.ru</h3>
-        <p>Russia</p>
+        <span>{{ profileData.name }}</span>
+        <h3>{{ profileData.email }}</h3>
+        <p>{{ profileData.geo }}</p>
       </div>
     </div>
     <div class="profile__content">
       <h4>Summary</h4>
       <div class="summary">
-        <template v-for="(value, key) in data" :key="key">
+        <template v-for="(value, key) in profileData" :key="key">
           <span>{{ key }}</span>
           <span>{{ value }}</span>
         </template>
