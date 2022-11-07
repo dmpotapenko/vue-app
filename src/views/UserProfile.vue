@@ -64,6 +64,7 @@ async function fetchUserProfile() {
 
   @include media(md) {
     grid-template-columns: min-content auto;
+    font-size: 1.2rem;
   }
 
   & > span {
