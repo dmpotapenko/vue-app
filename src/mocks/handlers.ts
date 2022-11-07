@@ -42,6 +42,7 @@ export const handlers = [
         geo: "Canada, Vancouver",
         profession: "Designer",
         "Total Projects": 32,
+        avatarUrl: "https://i.pravatar.cc/300",
       });
       res.headers.set("Content-Type", "application/json;charset=utf-8");
       res.delay = RESPONSE_DELAY * 3;

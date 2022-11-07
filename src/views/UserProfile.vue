@@ -28,7 +28,7 @@ async function fetchUserProfile() {
   <div v-if="profileData" class="profile">
     <div class="profile__header">
       <div class="profile__image">
-        <img src="https://i.pravatar.cc/300" alt="must be here" />
+        <img :src="profileData.avatarUrl" alt="must be here" />
       </div>
       <div class="profile__info">
         <h3>{{ profileData.name }}</h3>
