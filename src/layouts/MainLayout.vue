@@ -3,8 +3,6 @@ import { computed, watch } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
-import "@/assets/global.scss";
-
 const store = useStore();
 const router = useRouter();
 const isAuthorized = computed(() => store.getters.authorized);
@@ -42,38 +40,61 @@ function onLogoutClick() {
 </template>
 
 <style lang="scss">
-* {
-  box-sizing: border-box;
+@import "@/assets/global.scss";
+
+body {
+  @include media(lg) {
+    font-size: $size-20;
+  }
+  @include media(sm) {
+    font-size: $size-24;
+  }
 }
+
+html,
 body {
   margin: 0;
+  background: linear-gradient(20deg, $dark, $dark-light, $dark);
 }
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
 
+#app {
+  color: #2c3e50;
+  padding: $size-12 0;
   display: flex;
   flex-direction: column;
-
   height: 100vh;
+  margin: 0 auto;
+
+  max-width: 760px;
+  @include media(md) {
+    width: 80%;
+  }
+  @include media(sm) {
+    width: 96%;
+    max-width: 100%;
+  }
 
   .main {
     display: flex;
     flex-direction: column;
     flex: 1;
-    background-color: #0001;
   }
 
   .page {
     display: flex;
-    margin: 0 auto;
     flex: 1;
   }
 
   .btn-logout {
-    margin: 12px;
+    font-size: toRem($size-20);
+    margin: 0.5em;
+  }
+
+  header {
+    left: 0;
+    border-radius: $size-8;
+    background-color: $white;
+    box-shadow: 0 0 $size-4 $dark;
   }
 }
 </style>

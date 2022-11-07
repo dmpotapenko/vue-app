@@ -1,0 +1,58 @@
+@import "./variables.scss";
+
+.form {
+  &__field {
+    margin-bottom: toRem($size-8);
+
+    & > .form__label {
+      display: block;
+      font-size: toRem($size-20);
+      font-weight: 600;
+      color: change-color($dark, $alpha: 0.8);
+      margin-bottom: $size-4 / 2;
+    }
+
+    & > .form__input {
+      display: block;
+      width: 100%;
+      outline: 0;
+      border: 2px solid $dark;
+      color: $dark;
+      font-size: toRem($size-20);
+      height: toRem($size-40);
+      box-sizing: border-box;
+      background: 0 0;
+      padding: 0 toRem($size-8);
+      transition: 0.3s linear;
+      line-height: 1.4;
+
+      &:focus {
+        border-color: $primary;
+        border-width: $size-4 / 2;
+        transition: 0.3s linear;
+      }
+      &:hover {
+        border-color: $primary-light;
+        border-width: $size-4 / 2;
+        transition: 0.3s linear;
+      }
+    }
+
+    & > .form__error {
+      display: none;
+      padding: toRem($size-4) 0 toRem($size-4 / 2) 0;
+      font-size: 1.2rem;
+      line-height: 1.4;
+    }
+  }
+
+  &_invalid {
+    & > .form__input {
+      border-color: $danger;
+    }
+    & > .form__error {
+      display: block;
+      color: $danger;
+    }
+  }
+}

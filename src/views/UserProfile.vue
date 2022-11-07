@@ -18,7 +18,9 @@ watch(authUserId, async () => {
 });
 
 async function fetchUserProfile() {
-  await store.dispatch("fetchUserProfile", authUserId.value);
+  if (authUserId.value) {
+    await store.dispatch("fetchUserProfile", authUserId.value);
+  }
 }
 </script>
 
@@ -29,8 +31,8 @@ async function fetchUserProfile() {
         <img src="https://i.pravatar.cc/300" alt="must be here" />
       </div>
       <div class="profile__info">
-        <span>{{ profileData.name }}</span>
-        <h3>{{ profileData.email }}</h3>
+        <h3>{{ profileData.name }}</h3>
+        <p>{{ profileData.email }}</p>
         <p>{{ profileData.geo }}</p>
       </div>
     </div>
@@ -53,62 +55,103 @@ async function fetchUserProfile() {
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/global.scss";
+@import "@/assets/variables.scss";
 .summary {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: repeat(2, min-content);
   grid-auto-rows: auto;
-  gap: 6px;
+  gap: toRem($size-8);
+
+  @include media(md) {
+    grid-template-columns: min-content auto;
+  }
 
   & > span {
-    padding: 2px;
+    padding: toRem($size-4);
     background-color: #eee8;
   }
 }
 h4 {
-  margin: 4px 0;
-  font-size: 18px;
+  margin: toRem($size-4) 0;
+  font-size: toRem($size-20);
 }
 .profile {
   width: 100%;
-  min-height: 200px;
-  max-width: 780px;
   box-sizing: border-box;
   overflow: hidden;
+  height: max-content;
+  border-radius: $size-8;
 
   &__header {
     background-color: white;
-    padding: 12px;
+    padding: toRem($size-12);
+    display: flex;
+    column-gap: toRem($size-16);
 
-    &::after {
-      content: "";
-      display: block;
-      clear: both;
+    @include media(sm) {
+      flex-wrap: wrap;
     }
   }
 
   &__content {
-    padding: 12px;
-    background-color: white;
+    padding: toRem($size-12);
+    background-color: $white;
   }
 
   &__image {
-    float: left;
-    width: 12%;
-    padding: 4px;
-    background-color: $dark;
-    border-radius: 4px;
-    // box-shadow: 0 0 8px $dark;
+    flex: 1 1 auto;
+    width: 10%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    min-height: toRem(112px);
+
+    @include media(md) {
+      width: 25%;
+    }
+    @include media(sm) {
+      float: none;
+      max-width: 40%;
+      margin: 0 auto;
+    }
 
     & > img {
       width: 100%;
       height: auto;
       display: block;
+      padding: $size-4;
+      border-radius: 50%;
+      background-color: $dark;
+    }
+
+    & > .profile__name {
+      font-size: 1.2em;
+      font-weight: 600;
+
+      display: block;
+      text-align: center;
+      margin-top: toRem($size-8);
     }
   }
   &__info {
-    float: right;
-    width: 85%;
+    flex: 1 1 auto;
+    width: calc(80% - toRem($size-16));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h3,
+    p {
+      margin: 0;
+    }
+
+    @include media(md) {
+      width: 75%;
+    }
+    @include media(sm) {
+      width: 100%;
+      text-align: center;
+    }
   }
 }
 </style>

@@ -1,0 +1,41 @@
+$primary: #3abf7d;
+$primary-light: #86baa3;
+$danger: #a22;
+$dark: #444;
+$dark-light: #666;
+$white: #fff;
+
+$size-0: 0;
+$size-4: 4px;
+$size-8: 8px;
+$size-12: 12px;
+$size-16: 16px;
+$size-20: 20px;
+$size-24: 24px;
+$size-28: 28px;
+$size-32: 32px;
+$size-36: 36px;
+$size-40: 40px;
+$size-56: 56px;
+$size-64: 64px;
+$size-80: 80px;
+
+$breakpoints: (
+  xl: 1200px,
+  lg: 992px,
+  md: 768px,
+  sm: 576px,
+);
+
+$base: 16px;
+
+@function toRem($value) {
+  $remValue: ($value / $base) + rem; 
+  @return $remValue;
+}
+
+@mixin media($Device) {
+  @media screen and (max-width: (map-get($breakpoints, $Device) - 1px)) {
+    @content;
+  }
+}

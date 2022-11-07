@@ -27,6 +27,8 @@ withDefaults(
 </template>
 
 <style scopped lang="scss">
+@import "@/assets/variables";
+
 .loader-container {
   position: relative;
 }
@@ -49,46 +51,46 @@ withDefaults(
     height: 100%;
     top: 0;
     left: 0;
-    background-color: #444a;
-    filter: blur(4px);
+    background-color: change-color($color: $dark-light, $alpha: 0.2);
+    filter: blur($size-8);
   }
   &__spinner {
     .lds-facebook {
       display: inline-block;
       position: relative;
-      width: 80px;
-      height: 80px;
+      width: $size-80;
+      height: $size-80;
     }
     .lds-facebook div {
       display: inline-block;
       position: absolute;
-      left: 8px;
-      width: 16px;
-      background: #3abf7d;
-      box-shadow: 0 0 4px #3abf7d;
+      left: $size-8;
+      width: $size-16;
+      background: $primary;
+      box-shadow: 0 0 $size-4 $primary;
       animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
     }
     .lds-facebook div:nth-child(1) {
-      left: 8px;
+      left: $size-8;
       animation-delay: -0.24s;
     }
     .lds-facebook div:nth-child(2) {
-      left: 32px;
+      left: $size-32;
       animation-delay: -0.12s;
     }
     .lds-facebook div:nth-child(3) {
-      left: 56px;
+      left: $size-56;
       animation-delay: 0;
     }
     @keyframes lds-facebook {
       0% {
-        top: 8px;
-        height: 64px;
+        top: $size-8;
+        height: $size-64;
       }
       50%,
       100% {
-        top: 24px;
-        height: 32px;
+        top: $size-24;
+        height: $size-32;
       }
     }
   }

@@ -16,9 +16,12 @@ import Profile from "@/views/UserProfile.vue";
 </template>
 
 <style lang="scss" scoped>
+@import "@/assets/variables.scss";
+
 #user-profile {
   display: flex;
-  padding: 12px 0;
+  padding: toRem($size-12) 0;
+  min-height: 200px;
 }
 
 .loader {

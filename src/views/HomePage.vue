@@ -56,7 +56,7 @@ function validateFields() {
 
 <template>
   <div id="home">
-    <v-loader :is-loading="isLoading">
+    <v-loader :is-loading="isLoading" class="home-loader">
       <div class="content">
         <h1>Sign In</h1>
         <form class="form" @submit="onSubmit">
@@ -103,6 +103,8 @@ function validateFields() {
 </template>
 
 <style lang="scss">
+@import "@/assets/global.scss";
+
 #home {
   flex: 1;
   display: flex;
@@ -110,15 +112,25 @@ function validateFields() {
   justify-content: center;
 
   h1 {
-    color: #555;
+    color: $dark;
   }
 
   .content {
-    padding: 32px;
+    padding: toRem($size-8);
     width: 100%;
     background-color: white;
-    border-radius: 16px;
+    border-radius: $size-4;
     min-width: 480px;
+
+    @include media(sm) {
+      min-width: auto;
+    }
+  }
+
+  .home-loader {
+    @include media(md) {
+      flex: 1;
+    }
   }
 }
 </style>
